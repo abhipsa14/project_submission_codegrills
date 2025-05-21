@@ -3,9 +3,10 @@
 This repository contains two Python tools designed for monitoring and extracting content related to cryptocurrencies and dark web (.onion) links:
 
 1. **Pastebin Keyword Crawler**: Scrapes Pastebin's public archive for pastes containing crypto-related keywords or Telegram links.
-   
-![Uploading Screenshot From 2025-05-21 21-30-55.png…]()
-![Uploading Screenshot From 2025-05-21 21-30-45.png…]()
+
+   ![Screenshot From 2025-05-21 21-30-45](https://github.com/user-attachments/assets/67f0efcd-6dcb-496f-874d-7efc8857d9e9)
+   ![Screenshot From 2025-05-21 21-30-55](https://github.com/user-attachments/assets/f9520c00-010d-4af9-ac06-ec39e346a0c0)
+
 
 ## Table of Contents
 
