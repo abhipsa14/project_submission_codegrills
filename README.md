@@ -14,11 +14,6 @@ This repository contains two Python tools designed for monitoring and extracting
   - [Features](#features)
   - [Usage](#usage)
   - [Output Format](#output-format)
-- [Telegram .onion Link Extractor](#telegram-onion-link-extractor)
-  - [Features](#features-1)
-  - [Setup](#setup)
-  - [Usage](#usage-1)
-  - [Output Format](#output-format-1)
 - [Best Practices](#best-practices)
 - [Legal Considerations](#legal-considerations)
 
