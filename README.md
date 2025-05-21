@@ -3,7 +3,7 @@
 This repository contains two Python tools designed for monitoring and extracting content related to cryptocurrencies and dark web (.onion) links:
 
 1. **Pastebin Keyword Crawler**: Scrapes Pastebin's public archive for pastes containing crypto-related keywords or Telegram links.
-2. **Telegram .onion Link Extractor**: Connects to Telegram channels and extracts .onion links from messages.
+
 
 These tools are designed to work independently but can be used together as part of a larger dark web monitoring system.
 
@@ -86,58 +86,6 @@ The crawler outputs results in JSONL format (one JSON object per line):
   "url": "https://pastebin.com/raw/abc123",
   "discovered_at": "2025-05-21T10:00:00Z",
   "keywords_found": ["crypto", "bitcoin"],
-  "status": "pending"
-}
-```
-
-## Telegram .onion Link Extractor
-
-The Telegram .onion Link Extractor (`telegram_onion_extractor.py`) connects to a Telegram channel and extracts .onion links from messages.
-
-### Features
-
-- Uses the Telethon library to connect to the Telegram API
-- Monitors public Telegram channels for .onion links
-- Extracts and parses messages using regex to find .onion URLs
-- Stores the last processed message ID to avoid duplicate processing
-- Properly implements async/await for efficient operation
-- Handles API rate limits and errors gracefully
-
-### Setup
-
-1. **Obtain Telegram API credentials**:
-   - Create a Telegram account if you don't have one
-   - Visit [https://my.telegram.org/](https://my.telegram.org/) and log in
-   - Go to "API development tools" and create a new application
-   - Note down your API ID and API Hash
-
-2. **Set environment variables** (optional but recommended):
-   ```bash
-   export TELEGRAM_API_ID=your_api_id
-   export TELEGRAM_API_HASH=your_api_hash
-   export TELEGRAM_CHANNEL=toronionlinks  # or any other public channel
-   ```
-
-### Usage
-
-Run the script with the following command:
-
-```bash
-python telegram_onion_extractor.py
-```
-
-If you haven't set environment variables, the script will prompt you to enter your API credentials.
-
-### Output Format
-
-The extractor outputs results in JSONL format (one JSON object per line):
-
-```json
-{
-  "source": "telegram",
-  "url": "http://abcd1234xyz.onion",
-  "discovered_at": "2025-05-21T10:00:00Z",
-  "context": "Found in Telegram channel @toronionlinks",
   "status": "pending"
 }
 ```

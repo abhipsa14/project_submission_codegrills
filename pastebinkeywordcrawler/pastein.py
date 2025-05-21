@@ -45,7 +45,7 @@ class PastebinCrawler:
         self.headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
         }
-        # Create output file directory if it doesn't exist
+        
         output_dir = os.path.dirname(output_file)
         if output_dir and not os.path.exists(output_dir):
             os.makedirs(output_dir)
@@ -58,10 +58,10 @@ class PastebinCrawler:
             
             soup = BeautifulSoup(response.text, 'html.parser')
             
-            # Find all paste links on the archive page
+     
             paste_links = soup.select('table.maintable tr td:nth-child(1) a')
             
-            # Extract paste IDs from href attributes
+          
             paste_ids = []
             for link in paste_links:
                 href = link.get('href')
@@ -81,7 +81,7 @@ class PastebinCrawler:
         url = self.raw_paste_url.format(paste_id)
         
         try:
-            # Add a small delay to avoid being rate-limited
+          
             time.sleep(random.uniform(1.0, 3.0))
             
             response = requests.get(url, headers=self.headers)
@@ -166,17 +166,17 @@ class PastebinCrawler:
         with ThreadPoolExecutor(max_workers=max_workers) as executor:
             results = list(executor.map(self.process_paste, paste_ids))
             
-        # Save valid results
+       
         for result in results:
             if result:
                 self.save_result(result)
                 
-        # Count how many matches were found
+
         match_count = sum(1 for r in results if r)
         logging.info(f"Crawler finished. Found {match_count} pastes with matching keywords.")
 
 
 if __name__ == "__main__":
-    # Initialize and run the crawler
+    
     crawler = PastebinCrawler()
     crawler.run()
