@@ -1,1 +1,161 @@
-# project_submission_codegrills
+# Project_submission_codegrills
+
+This repository contains two Python tools designed for monitoring and extracting content related to cryptocurrencies and dark web (.onion) links:
+
+1. **Pastebin Keyword Crawler**: Scrapes Pastebin's public archive for pastes containing crypto-related keywords or Telegram links.
+2. **Telegram .onion Link Extractor**: Connects to Telegram channels and extracts .onion links from messages.
+
+These tools are designed to work independently but can be used together as part of a larger dark web monitoring system.
+
+## Table of Contents
+
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Pastebin Keyword Crawler](#pastebin-keyword-crawler)
+  - [Features](#features)
+  - [Usage](#usage)
+  - [Output Format](#output-format)
+- [Telegram .onion Link Extractor](#telegram-onion-link-extractor)
+  - [Features](#features-1)
+  - [Setup](#setup)
+  - [Usage](#usage-1)
+  - [Output Format](#output-format-1)
+- [Best Practices](#best-practices)
+- [Legal Considerations](#legal-considerations)
+
+## Requirements
+
+- Python 3.7+
+- Internet connection
+- For the Telegram extractor: Telegram account and API credentials
+
+## Installation
+
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/yourusername/project_submission_codegrills.git
+   cd project_submission_codegrills
+   ```
+
+2. Install the required dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+   Or install dependencies individually:
+   ```bash
+   pip install requests beautifulsoup4 telethon
+   ```
+
+## Pastebin Keyword Crawler
+
+The Pastebin Keyword Crawler (`pastebin_keyword_crawler.py`) scrapes Pastebin's public archive for pastes containing crypto-related keywords or Telegram links and stores the results in a JSONL file.
+
+### Features
+
+- Scrapes Pastebin's archive to extract the latest 30 paste IDs
+- Fetches content for each paste using the raw URL format
+- Checks for crypto and Telegram-related keywords in paste content
+- Multi-threaded processing for improved performance
+- Rate limiting and request delays to avoid being blocked
+- Comprehensive logging of the crawling process
+
+### Usage
+
+Run the script with the following command:
+
+```bash
+python pastebin_keyword_crawler.py
+```
+
+To customize the crawler, you can modify the following parameters in the script:
+
+- `keywords`: List of keywords to search for in pastes
+- `output_file`: Path to save the matching results (default: `keyword_matches.jsonl`)
+- `max_workers`: Number of concurrent threads for processing (default: 5)
+
+### Output Format
+
+The crawler outputs results in JSONL format (one JSON object per line):
+
+```json
+{
+  "source": "pastebin",
+  "context": "Found crypto-related content in Pastebin paste ID abc123",
+  "paste_id": "abc123",
+  "url": "https://pastebin.com/raw/abc123",
+  "discovered_at": "2025-05-21T10:00:00Z",
+  "keywords_found": ["crypto", "bitcoin"],
+  "status": "pending"
+}
+```
+
+## Telegram .onion Link Extractor
+
+The Telegram .onion Link Extractor (`telegram_onion_extractor.py`) connects to a Telegram channel and extracts .onion links from messages.
+
+### Features
+
+- Uses the Telethon library to connect to the Telegram API
+- Monitors public Telegram channels for .onion links
+- Extracts and parses messages using regex to find .onion URLs
+- Stores the last processed message ID to avoid duplicate processing
+- Properly implements async/await for efficient operation
+- Handles API rate limits and errors gracefully
+
+### Setup
+
+1. **Obtain Telegram API credentials**:
+   - Create a Telegram account if you don't have one
+   - Visit [https://my.telegram.org/](https://my.telegram.org/) and log in
+   - Go to "API development tools" and create a new application
+   - Note down your API ID and API Hash
+
+2. **Set environment variables** (optional but recommended):
+   ```bash
+   export TELEGRAM_API_ID=your_api_id
+   export TELEGRAM_API_HASH=your_api_hash
+   export TELEGRAM_CHANNEL=toronionlinks  # or any other public channel
+   ```
+
+### Usage
+
+Run the script with the following command:
+
+```bash
+python telegram_onion_extractor.py
+```
+
+If you haven't set environment variables, the script will prompt you to enter your API credentials.
+
+### Output Format
+
+The extractor outputs results in JSONL format (one JSON object per line):
+
+```json
+{
+  "source": "telegram",
+  "url": "http://abcd1234xyz.onion",
+  "discovered_at": "2025-05-21T10:00:00Z",
+  "context": "Found in Telegram channel @toronionlinks",
+  "status": "pending"
+}
+```
+
+## Best Practices
+
+- **Rate Limiting**: Both tools implement delays between requests to avoid being rate-limited or blocked
+- **Error Handling**: The scripts include robust error handling for network issues and API failures
+- **Logging**: Comprehensive logging helps track execution and troubleshoot issues
+- **Scalability**: The Pastebin crawler uses multi-threading while the Telegram extractor uses async/await for efficient execution
+
+## Legal Considerations
+
+These tools are designed for educational and research purposes only. When using these tools:
+
+- Respect Pastebin's and Telegram's Terms of Service
+- Do not use these tools for any illegal activities
+- Be mindful of rate limits to avoid disrupting services
+- Do not access private or protected content without authorization
+
+**Note**: While these tools extract information about .onion links, they do not directly access Tor hidden services or the dark web. Additional tools like the Tor Browser would be required to visit the extracted links.
